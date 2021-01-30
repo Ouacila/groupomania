@@ -1,53 +1,57 @@
 //Imports des modules
-var bcrypt = require("bcrypt");
-var jwt = require("jsonwebtoken");
-var models = require("../models");
+var jwt = require('jsonwebtoken');
+var express = require('express');
+var md5 = require('md5');
+let User = require('../models').User;
+
+let router = express.Router();
 
 // Constants
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const PASSWORD_REGEX = /^(?=.*\d).{4,8}$/;
 
-//Routes
-module.exports = {
-  signup: function (req, res, next) {
-    //Paramètres:
-    var email = req.body.email;
-    var pseudo = req.body.pseudo;
-    var password = req.body.password;
+//Création User + Route
+router.post('/signup', async (req, res) => {
+  let email = req.body.email;
+  let pseudo = req.body.pseudo;
+  let password = md5(req.body.password);
+  const user = await User.create({
+    email: email,
+    pseudo: pseudo,
+    password: password
+  });
+  res.json(user);
+});
 
-    models.User.findOne({
-      attributes: ["email"],
-      where: {
-        email: email,
-      },
-    })
-      .then(function (userFound) {
-        if (!userFound) {
-          bcrypt.hash(password, 8, function (err, bcryptedPwd) {
-            var newUser = models.User.create({
-              email: email,
-              pseudo: pseudo,
-              password: bcryptedPwd.then(function (newUser) {
-                return res.status(201).json({
-                  UserId: newUser.id,
-                });
-              }),
-            }).catch(function (err) {
-              return res.status(500).json({
-                error: "cannot add User",
-              });
-            });
-          });
-        } else {
-          return res.status(409).json({
-            error: "user already exist",
-          });
-        }
-      })
-      .catch(function (err) {
-        return res.status(500).json({
-          error: "unable to verify the user",
-        });
+// Connexion User+Route
+router.post('/login', (req, res) => {
+  let login = req.body.login;
+  let password = md5(req.body.password);
+  User.findOne({
+    where: {
+      email: login,
+      password: password
+    }
+  }).then((data) => {
+    if (data) {
+      let token = jwt.sign({
+        id: data.id,
+        login: data.email
+      }, req.app.get('key'), {
+        expiresIn: 1440
       });
-  },
-};
+      res.json({
+        success: true,
+        message: 'Login ok',
+        token: token
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: 'Login/password invalide!'
+      });
+    }
+  });
+});
+
+module.exports = router;
