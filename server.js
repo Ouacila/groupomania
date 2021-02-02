@@ -20,7 +20,7 @@ server.use(
 server.use(bodyParser.json());
 
 server.use("/", usersCtrl);
-//server.use("/post", postsCtrl);
+server.use("/api", postsCtrl);
 
 //Configuration routes
 server.get("/", function (req, res, next) {
