@@ -2,7 +2,7 @@
 
 var express = require('express');
 let Post = require('../models/').Post;
-let User = require('../models').User;
+const auth = require('../middleware/auth');
 
 let router = express.Router();
 
@@ -19,6 +19,20 @@ router.post('/post', async (req, res) => {
     res.json(newPost)
     console.log('Post crée !')
 });
+
+//Récupération d'un post 
+router.get('/posts/:id', async (req, res) => {
+    Post.findOne({
+            attributes: ['id', 'title', 'content'],
+            where: {
+                id: req.params.id,
+            }
+        })
+        .then(post => res.status(200).json(post))
+        .catch(error => res.status(400).json({
+            error
+        }));
+})
 //Récupération de tous les posts
 router.get('/posts', async (req, res) => {
     Post.findAll({
@@ -31,7 +45,7 @@ router.get('/posts', async (req, res) => {
 });
 
 //Modifier un post
-router.put('/post/:id', async (req, res) => {
+router.put('/post/:id', auth, async (req, res) => {
     Post.findOne({
             attributes: ['id', 'title', 'content'],
             where: {
@@ -62,7 +76,7 @@ router.put('/post/:id', async (req, res) => {
 })
 
 //Supprimer un post
-router.delete('/post/:id', async (req, res) => {
+router.delete('/post/:id', auth, async (req, res) => {
     Post.findOne({
             attributes: ['id', 'title', 'content'],
             where: {
