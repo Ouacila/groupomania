@@ -4,16 +4,15 @@
       <router-link to="/">Accueil</router-link>|
       <router-link to="/about">About</router-link>|
       <router-link to="/signup">Inscription</router-link>|
-      <router-link to="/login">Connectez-vous</router-link>
+      <router-link to="/login">Connectez-vous</router-link>|
     </div>
     <router-view />
   </div>
 </template>
 
-<script></script>
-
 <style lang="scss">
 #app {
+  padding: 0%;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

@@ -6,21 +6,19 @@
       <div class="form-group">
         <label class="col-md-4 control-label" for="email">E-mail</label>
         <div class="col-md-4">
-          <input id="mail" type="text" />
+          <input id="mail" type="text" v-model="login.login" />
         </div>
       </div>
       <div class="form-group">
-        <label class="col-md-4 control-label" for="password"
-          >Mot de Passe</label
-        >
+        <label class="col-md-4 control-label" for="password">Mot de Passe</label>
         <div class="col-md-4">
-          <input id="mdp" type="password" />
+          <input id="mdp" type="password" v-model="login.password" />
         </div>
       </div>
       <div class="form-group">
         <label class="col-md-4 control-label" for="submitbutton"></label>
         <div class="col-md-4">
-          <button id="submitbutton" name="submitbutton">Submit</button>
+          <button v-on:click="logUser()" id="submitbutton" name="submitbutton">Submit</button>
         </div>
       </div>
     </div>
@@ -34,67 +32,28 @@ export default {
   name: "login",
   data() {
     return {
-      email: "",
-      password: "",
+      login: {
+        login: "",
+        password: ""
+      }
     };
   },
-};
-axios({
-  method: "POST",
-  url: "api/auth/login",
-  headers: {
-    authorization: "Bearer",
-  },
-})
-  .then((resp) => {
-    console.log(resp.data);
-  })
-  .catch((err) => {
-    // Handle Error Here
-    console.error(err);
-  });
-
-/*import axios from "axios";
-
-const user = {
-  email: this.email,
-  password: this.password,
-};
-
-const sendPostRequest = async () => {
-  try {
-    const resp = await axios.post("api/auth/login", user);
-    console.log(resp.data);
-  } catch (err) {
-    // Handle Error Here
-    console.error(err);
-  }
-};
-
-sendPostRequest();
-
-/*methods: {
-  await axios.post(
-    "api/auth/login",
-    {
-      email: this.email,
-      password: this.password,
+  methods: {
+    logUser() {
+      axios
+        .post("http://localhost:7070/login", this.login)
+        .then(response => {
+          let newToken = response.data.token;
+          console.log(newToken);
+          axios.defaults.headers["Authorization"] = "Bearer " + newToken;
+          this.$router.push("/allPosts");
+        })
+        .catch(e => {
+          this.errors.push(e);
+        });
     }
-      .then(function(response) {
-        console.log(response);
-      })
-      .catch(function(error) {
-        console.log(error);
-      })
-  );
-}
-
-/*export default {
-  name: "User",
-  props: {
-    msg: String
   }
-};*/
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -108,7 +67,7 @@ sendPostRequest();
   font-size: 20px;
   font-weight: bold;
   input {
-    width: 150%;
+    width: 80%;
     height: 50px;
     font-family: "Courier New", Courier, monospace;
     font-weight: bold;

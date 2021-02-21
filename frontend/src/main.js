@@ -1,8 +1,11 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import Vuetify from 'vuetify'
 import axios from 'axios'
+import VueAxios from 'vue-axios'
+
+Vue.prototype.$http = axios
+Vue.use(axios, VueAxios)
 
 window.token = localStorage.getItem('token');
 
@@ -12,7 +15,6 @@ window.axios.defaults.params = {
   api_token: window.token
 }
 
-Vue.use(Vuetify)
 Vue.config.productionTip = false
 window.Event = new Vue;
 

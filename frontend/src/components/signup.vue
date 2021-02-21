@@ -39,7 +39,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script>
-const axios = require("axios");
+import axios from "axios";
+
 export default {
   name: "signup",
   data() {
@@ -56,28 +57,15 @@ export default {
       axios
         .post("http://localhost:7070/signup", this.user)
         .then((response) => {})
-        .catch((e) => {
-          this.errors.push(e);
-        });
+        .catch((error) =>
+          res.status(500).json({
+            error,
+          })
+        );
+      this.$router.push("/login"); // redirection vers la page login
     },
   },
 };
-
-/*   axios
-        .post("http://localhost:7070/signup", JSON.parse(response))
-
-        .then(function(response) {
-          email: this.mail;
-          pseudo: this.pseudo;
-          password: this.mdp;
-          console.log(response);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    }
-  }
-};*/
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -94,7 +82,7 @@ template {
   font-size: 20px;
   font-weight: bold;
   input {
-    width: 150%;
+    width: 80%;
     height: 50px;
     font-family: "Courier New", Courier, monospace;
     font-weight: bold;
@@ -102,14 +90,10 @@ template {
     box-sizing: border-box;
     border: 2px solid #d1515a;
     border-radius: 1rem;
-    margin-left: 15%;
   }
 }
-#propos {
-  height: 150px;
-}
 label {
-  display: flex;
+  display: inline-block;
 }
 #submitbutton {
   width: 300px;

@@ -28,9 +28,25 @@ const routes = [{
     name: 'Connexion',
     component: () => import('../components/login.vue')
   },
+  {
+    path: '/create',
+    name: 'Creationpost',
+    component: () => import('../components/creationPost.vue')
+  },
+  {
+    path: '/allPosts',
+    name: 'Posts',
+    component: () => import('../components/allPosts.vue')
+  },
+  {
+    path: '/post',
+    name: 'Posts',
+    component: () => import('../components/allPosts.vue')
+  },
 ]
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 })
 

@@ -8,6 +8,7 @@ let router = express.Router();
 
 //Création d'un post
 router.post('/post', async (req, res) => {
+    console.log(req.body);
     let userPseudo = req.body.userPseudo;
     let title = req.body.title;
     let content = req.body.content;
