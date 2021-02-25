@@ -2,14 +2,30 @@
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
     "User", {
-      pseudo: DataTypes.STRING,
-      email: DataTypes.STRING,
-      password: DataTypes.STRING,
+      pseudo: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        primaryKey: true,
+        unique: true
+      },
+
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+      },
+
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false
+      }
     }, {}
   );
   User.associate = function (models) {
     // associations can be defined here
-    models.User.hasMany(models.Post);
+    models.User.hasMany(models.Post, {
+      foreignKey: 'userPseudo'
+    });
 
   };
   return User;

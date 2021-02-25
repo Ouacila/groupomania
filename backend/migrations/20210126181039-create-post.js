@@ -9,17 +9,20 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       userPseudo: {
-        type: Sequelize.INTEGER,
-        references:{
-          model:'users',
-          key:'id',
+        type: Sequelize.STRING,
+        allowNull: false,
+        references: {
+          model: 'users',
+          key: 'pseudo'
         }
       },
       title: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       content: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

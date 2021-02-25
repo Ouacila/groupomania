@@ -1,36 +1,35 @@
 <template>
   <div id="signup">
     <img alt="Groupomania logo" src="../assets/icon-left-font.png" />
-    <h1>
-      Merci de bien vouloir renseigner les champs ci-dessous pour vous inscrire
-    </h1>
+    <h1>Merci de bien vouloir renseigner les champs ci-dessous pour vous inscrire</h1>
     <div class="form">
       <div class="form-group">
         <label class="col-md-4 control-label" for="email">E-mail</label>
         <div class="col-md-4">
-          <input id="mail" type="text" v-model="user.email" />
+          <input
+            id="mail"
+            type="text"
+            placeholder="ex:Bertrand@groupomania.com"
+            v-model="user.email"
+          />
         </div>
       </div>
       <div class="form-group">
         <label class="col-md-4 control-label" for="pseudo">Pseudo</label>
         <div class="col-md-4">
-          <input id="pseudo" type="text" v-model="user.pseudo" />
+          <input id="pseudo" type="text" placeholder="ex:Bertrand" v-model="user.pseudo" />
         </div>
       </div>
       <div class="form-group">
-        <label class="col-md-4 control-label" for="password"
-          >Mot de Passe</label
-        >
+        <label class="col-md-4 control-label" for="password">Mot de Passe</label>
         <div class="col-md-4">
-          <input id="mdp" type="password" v-model="user.password" />
+          <input id="mdp" type="password" placeholder="min 5 caractères" v-model="user.password" />
         </div>
       </div>
       <div class="form-group">
         <label class="col-md-4 control-label" for="submitbutton"></label>
         <div class="col-md-4">
-          <button v-on:click="signUp()" id="submitbutton" name="submitbutton">
-            Créer un compte
-          </button>
+          <button v-on:click="signUp()" id="submitbutton" name="submitbutton">Créer un compte</button>
         </div>
       </div>
     </div>
@@ -48,23 +47,23 @@ export default {
       user: {
         email: "",
         pseudo: "",
-        password: "",
-      },
+        password: ""
+      }
     };
   },
   methods: {
     signUp() {
       axios
         .post("http://localhost:7070/signup", this.user)
-        .then((response) => {})
-        .catch((error) =>
+        .then(response => {})
+        .catch(error =>
           res.status(500).json({
-            error,
+            error
           })
         );
       this.$router.push("/login"); // redirection vers la page login
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -78,13 +77,13 @@ template {
   justify-content: center;
   display: inline-flex;
   margin-bottom: 3%;
-  font-family: "Courier New", Courier, monospace;
-  font-size: 20px;
+  font-family: "Jura", sans-serif;
+  font-size: 1.3rem;
   font-weight: bold;
   input {
     width: 80%;
     height: 50px;
-    font-family: "Courier New", Courier, monospace;
+    font-family: "Jura", sans-serif;
     font-weight: bold;
     text-align: center;
     box-sizing: border-box;
@@ -98,7 +97,7 @@ label {
 #submitbutton {
   width: 300px;
   height: 40px;
-  font-family: "Courier New", Courier, monospace;
+  font-family: "Jura", sans-serif;
   font-weight: bold;
   font-size: 20px;
   color: #1f3150;
@@ -108,6 +107,7 @@ label {
 h1 {
   font-size: 30px;
   margin-bottom: 2%;
+  font-family: "Prompt", sans-serif;
 }
 ul {
   display: inline-flexbox;
@@ -115,7 +115,7 @@ ul {
   margin-bottom: 3%;
   li {
     font-size: 20px;
-    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    font-family: "Jura", sans-serif;
   }
 }
 </style>

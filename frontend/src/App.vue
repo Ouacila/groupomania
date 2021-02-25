@@ -12,16 +12,13 @@
 
 <style lang="scss">
 #app {
-  padding: 0%;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
   text-align: center;
   color: #2c3e50;
 }
 
 #nav {
-  padding: 30px;
+  padding-top: 30px;
 
   a {
     font-weight: bold;
@@ -29,6 +26,16 @@
 
     &.router-link-exact-active {
       color: #d1515a;
+    }
+  }
+}
+@media all and (max-width: 1024px) {
+  #app {
+    margin: 0px;
+    padding: 0px;
+
+    #nav {
+      margin-left: -30%;
     }
   }
 }

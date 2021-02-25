@@ -1,9 +1,9 @@
 <template>
-  <div id="createPost">
+  <div id="updatePost">
     <button id="Posts" name="Posts" class="btn btn-info">
       <router-link to="/allPosts">Voir tous les posts</router-link>
     </button>
-    <h1>Quoi de nouveau à partager avec vos collègues?</h1>
+    <h1>Modifier votre post</h1>
     <div class="form-group">
       <label class="col-md-10 control-label" for="textinput">
         <h4>Titre du post</h4>
@@ -18,7 +18,7 @@
       />
     </div>
     <div class="form-group">
-      <label class="col-md-12 control-label" for="content">
+      <label class="col-md-10 control-label" for="content">
         <h4>Corps du post</h4>
       </label>
       <textarea
@@ -31,31 +31,34 @@
       />
     </div>
     <div class="form-group">
-      <label class="submit" for="submitbutton"></label>
-      <button v-on:click="create()" id="submitbutton" name="submitbutton">Partager mon post</button>
+      <label class="col-md-6 control-label" for="submitbutton"></label>
+      <button
+        v-on:click="update(post.id)"
+        id="submitbutton"
+        name="submitbutton"
+        class="btn btn-info"
+      >Modifier mon post</button>
     </div>
   </div>
 </template>
-
 <script>
 import axios from "axios";
 export default {
-  name: "createPost",
   data() {
     return {
       post: {
         title: "",
-        content: "",
-        userPseudo: localStorage.getItem("userPseudo")
+        content: ""
       }
     };
   },
   methods: {
-    create() {
-      axios.defaults.headers["Authorization"] =
-        "Bearer " + localStorage.getItem("authToken");
+    update() {
       axios
-        .post("http://localhost:7070/api/post", this.post)
+        .put(
+          `http://localhost:7070/api/post/${this.$route.params.id}`,
+          this.post
+        )
         .then(response => {
           console.log(response.data);
           this.$router.push("/allPosts");
@@ -70,10 +73,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-#createPost {
-  width: 100%;
-  text-align: center;
-  margin: auto;
+#updatePost {
   h1 {
     font-family: "Jura", sans-serif;
     font-size: 2.5rem;
@@ -85,23 +85,20 @@ export default {
     margin: auto;
     padding-top: 3%;
     padding-bottom: 3%;
-    font-family: "Jura", sans-serif;
+    font-family: "Courier New", Courier, monospace;
     font-size: 20px;
     font-weight: bold;
-
     h4 {
-      font-family: "Jura", sans-serif;
       justify-content: center;
       margin: auto;
-      padding-bottom: 2%;
       font-weight: bold;
-      font-size: 2.2rem;
+      font-size: 2.5rem;
     }
     input,
     textarea {
       width: 100%;
       height: 100px;
-      font-family: "prompt", sans-serif;
+      font-family: "Courier New", Courier, monospace;
       font-weight: bold;
       text-align: center;
       box-sizing: border-box;
@@ -112,14 +109,14 @@ export default {
       height: 250px;
     }
     label {
-      width: 80%;
       text-align: center;
       margin: auto;
+      display: flex;
     }
     #submitbutton {
       width: 300px;
       height: 40px;
-      font-family: "Jura", sans-serif;
+      font-family: "Courier New", Courier, monospace;
       font-weight: bold;
       font-size: 20px;
       color: #1f3150;
@@ -127,8 +124,8 @@ export default {
       border-radius: 1rem;
     }
   }
-  a {
-    color: black;
-  }
+}
+a {
+  color: black;
 }
 </style>
