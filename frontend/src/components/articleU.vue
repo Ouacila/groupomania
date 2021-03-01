@@ -24,6 +24,9 @@
       name="Supprimer"
       class="btn btn-danger"
     >Supprimer le post</button>
+    <footer>
+      <img class="img-footer" alt="Vue logo" src="../assets/icon-white-footer.png" />
+    </footer>
   </div>
 </template>
 
@@ -67,6 +70,8 @@ export default {
         });
     },
     update(postId) {
+      axios.defaults.headers["Authorization"] =
+        "Bearer " + localStorage.getItem("authToken");
       this.$router.push(`/update/${postId}`);
     }
   }
@@ -74,28 +79,99 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.postU {
-  width: 70%;
-  text-align: center;
-  margin: auto;
-  h1 {
-    margin-top: 3%;
-    margin-bottom: 5%;
-    text-decoration: underline;
-    font-family: "Shippori Mincho B1", serif;
-    font-size: 2.5rem;
+.article {
+  margin-bottom: 50%;
+  #Modifier,
+  #Supprimer {
+    margin-bottom: 30%;
+    border: 2px solid black;
+    margin-left: 5px;
   }
-  h2 {
-    font-family: "Mukta", sans-serif;
-    font-size: 2rem;
-    margin-bottom: 3%;
+  #Posts,
+  #logOut,
+  #create {
+    border: 2px solid black;
+    margin: 2% 2%;
   }
-  p {
-    font-family: "Indie Flower", cursive;
-    font-size: 1.5rem;
+  .postU {
+    width: 70%;
+    text-align: center;
+    margin: auto;
+    h1 {
+      margin-top: 3%;
+      margin-bottom: 5%;
+      text-decoration: underline;
+      font-family: "Shippori Mincho B1", serif;
+      font-size: 2.5rem;
+    }
+    h2 {
+      font-family: "Mukta", sans-serif;
+      font-size: 2rem;
+      margin-bottom: 3%;
+    }
+    p {
+      font-family: "Indie Flower", cursive;
+      font-size: 1.5rem;
+    }
+  }
+  a {
+    color: black;
   }
 }
-a {
-  color: black;
+footer {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  position: fixed;
+  bottom: 0;
+  background-color: #1f3150;
+  z-index: 0;
+  .img-footer {
+    height: 100%;
+    z-index: 1;
+  }
+}
+@media all and (max-width: 700px) {
+  .article {
+    .postU {
+      h1 {
+        font-size: 1.8rem;
+        margin-top: 5%;
+      }
+      h2 {
+        font-size: 1.6rem;
+        margin-top: 5%;
+        margin-bottom: 7%;
+      }
+      p {
+        font-size: 1.2rem;
+        text-align: justify;
+      }
+    }
+  }
+}
+/* Affichage site Grands ecrans 4K*/
+@media all and (min-width: 1500px) and (max-width: 2300px) {
+  button {
+    width: 30%;
+    font-size: 2.4rem;
+  }
+  .article {
+    .postU {
+      h1 {
+        font-size: 3rem;
+      }
+      h2 {
+        font-size: 2.8rem;
+      }
+      p {
+        font-size: 2.6rem;
+      }
+    }
+    #Modifier,
+    #Supprimer {
+      margin-top: 20%;
+    }
+  }
 }
 </style>

@@ -24,7 +24,10 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = function (models) {
     // associations can be defined here
     models.User.hasMany(models.Post, {
-      foreignKey: 'userPseudo'
+      foreignKey: 'userPseudo',
+      hooks: true,
+      onDelete: 'cascade'
+
     });
 
   };

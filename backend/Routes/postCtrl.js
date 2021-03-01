@@ -57,22 +57,30 @@ router.put('/post/:id', async (req, res) => {
             }
         })
         .then(function (Post) {
-            Post.update({
-                    id: req.params.id,
-                    title: req.body.title,
-                    content: req.body.content
-                })
-                .then(() =>
-                    res.status(200).json({
-                        message: 'Post modifié !'
+                //if la valeur stockée en userCtrl = user.pseudo = Post.userPseudo
+                // récupération de pseudoUser de la session if dataPseudo = Post.userPseudo
+                // if (data.userPseudo == Post.userPseudo) {
+                Post.update({
+                        id: req.params.id,
+                        title: req.body.title,
+                        content: req.body.content
                     })
-                )
-                .catch((error) =>
-                    res.status(400).json({
-                        error
-                    })
-                );
-        })
+                    .then(() =>
+                        res.status(200).json({
+                            message: 'Post modifié !'
+                        })
+                    )
+                    .catch((error) =>
+                        res.status(400).json({
+                            message: 'Vous ne pouvez pas modifier ce post'
+                        })
+                    );
+            }
+            /* else {
+                            console.log(error)
+                        } 
+                    } */
+        )
         .catch(function (error) {
             res.status(404).json({
                 error: 'Pb avec la fonction'
@@ -89,6 +97,7 @@ router.delete('/post/:id', async (req, res) => {
             }
         })
         .then(function (Post) {
+            //
             Post.destroy({
                     _id: req.params.id
                 })
@@ -105,7 +114,7 @@ router.delete('/post/:id', async (req, res) => {
         })
         .catch((error) =>
             res.status(500).json({
-                message: 'Post supprimé!'
+                error
             })
         );
 });

@@ -19,6 +19,7 @@
 
 #nav {
   padding-top: 30px;
+  margin-bottom: 3%;
 
   a {
     font-weight: bold;
@@ -33,10 +34,20 @@
   #app {
     margin: 0px;
     padding: 0px;
-
-    #nav {
-      margin-left: -30%;
-    }
+  }
+}
+/* Site responsive pour petits écrans*/
+@media all and (max-width: 700px) {
+  #nav {
+    display: flex;
+    flex-flow: column;
+  }
+}
+/* Affichage site Grands ecrans 4K*/
+@media all and (min-width: 1500px) and (max-width: 2300px) {
+  #nav {
+    font-size: 2rem;
+    margin-top: 5%;
   }
 }
 </style>

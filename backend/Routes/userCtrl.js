@@ -24,41 +24,53 @@ router.post('/login', (req, res) => {
   let login = req.body.login;
   let password = md5(req.body.password);
   User.findOne({
-    where: {
-      email: login,
-      password: password
-    }
-  }).then((data) => {
-    if (data) {
-      let token = jwt.sign({
-          id: data.id,
-          login: data.email
-        },
-        req.app.get('key'), {
-          expiresIn: 3600
-        }
-      );
-      res.json({
-        success: true,
-        message: 'Login ok',
-        userPseudo: data.pseudo,
-        token: token
-      });
-    } else {
-      res.status(400).json({
-        success: false,
-        message: 'Login/password invalide!'
-      });
-    }
-  });
+      where: {
+        email: login,
+        password: password
+      }
+    })
+    .then((data) => {
+
+      if (data) {
+        // stock data.pseudo dans la session utilisateur 
+        //let dataPseudo = data.pseudo;
+        //sessionStorage.setItem("dataPseudo", dataPseudo);
+        let token = jwt.sign({
+            id: data.id,
+            login: data.email,
+
+          },
+
+          req.app.get('key'), {
+            expiresIn: 3600
+          }
+        );
+
+        res.json({
+          success: true,
+          message: 'Login ok',
+          userPseudo: data.pseudo,
+          userId: data.id,
+          token: token,
+
+        });
+      } else {
+        res.status(400).json({
+          success: false,
+          message: 'Login/password invalide!'
+        });
+      }
+
+    });
 });
 
 //Supprimer son compte
 router.delete('/auth/:id', async (req, res) => {
   User.findOne({
-      attributes: ['id'],
+      attributes: ['id', 'email', 'pseudo'],
       where: {
         id: req.params.id
+
       }
     })
     .then(function (User) {
@@ -70,11 +82,12 @@ router.delete('/auth/:id', async (req, res) => {
             message: 'Compte supprimé!'
           })
         )
-        .catch((error) =>
+        .catch((error) => {
+          console.log(error)
           res.status(400).json({
             message: 'Pb au niveau de la suppression'
           })
-        );
+        });
     })
     .catch((error) =>
       res.status(500).json({

@@ -34,6 +34,9 @@
       <label class="submit" for="submitbutton"></label>
       <button v-on:click="create()" id="submitbutton" name="submitbutton">Partager mon post</button>
     </div>
+    <footer>
+      <img class="img-footer" alt="Vue logo" src="../assets/icon-white-footer.png" />
+    </footer>
   </div>
 </template>
 
@@ -46,7 +49,8 @@ export default {
       post: {
         title: "",
         content: "",
-        userPseudo: localStorage.getItem("userPseudo")
+        userPseudo: localStorage.getItem("userPseudo"),
+        userId: localStorage.getItem("userId")
       }
     };
   },
@@ -74,6 +78,10 @@ export default {
   width: 100%;
   text-align: center;
   margin: auto;
+  #Posts {
+    border: 2px solid black;
+    margin: 2% 2%;
+  }
   h1 {
     font-family: "Jura", sans-serif;
     font-size: 2.5rem;
@@ -125,10 +133,76 @@ export default {
       color: #1f3150;
       border: 2px solid #d1515a;
       border-radius: 1rem;
+      margin-bottom: 30%;
     }
   }
   a {
     color: black;
+  }
+}
+footer {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  position: fixed;
+  bottom: 0;
+  background-color: #1f3150;
+  z-index: 0;
+  .img-footer {
+    height: 100%;
+    z-index: 1;
+  }
+}
+/* Site responsive tablettes/smartphones*/
+@media all and (max-width: 1024px) {
+  #createPost {
+    .form-group {
+      #submitbutton {
+        margin-bottom: 40%;
+      }
+    }
+  }
+}
+/* Site responsive tablettes/smartphones*/
+@media all and (max-width: 700px) {
+  #createPost {
+    h1 {
+      font-size: 1.8rem;
+    }
+    .form-group {
+      h4 {
+        font-size: 1.5rem;
+      }
+      #submitbutton {
+        margin-bottom: 80%;
+      }
+    }
+  }
+}
+/* Affichage site Grands ecrans 4K*/
+@media all and (min-width: 1500px) and (max-width: 2300px) {
+  button {
+    width: 30%;
+    font-size: 2.4rem;
+  }
+  #createPost {
+    h1 {
+      font-size: 3.2rem;
+    }
+    .form-group {
+      h4 {
+        font-size: 2.8rem;
+      }
+      input,
+      textarea {
+        font-size: 2.6rem;
+      }
+      #submitbutton {
+        width: 450px;
+        height: auto;
+        font-size: 2.4rem;
+      }
+    }
   }
 }
 </style>

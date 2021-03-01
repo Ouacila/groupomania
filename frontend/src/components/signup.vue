@@ -1,11 +1,12 @@
 <template>
   <div id="signup">
-    <img alt="Groupomania logo" src="../assets/icon-left-font.png" />
+    <img class="logo" alt="logo-responsive" src="../assets/icon.png" />
+    <img class="Logo" alt="Vue logo" src="../assets/icon-left-font.png" />
     <h1>Merci de bien vouloir renseigner les champs ci-dessous pour vous inscrire</h1>
     <div class="form">
       <div class="form-group">
         <label class="col-md-4 control-label" for="email">E-mail</label>
-        <div class="col-md-4">
+        <div class="col-md-8">
           <input
             id="mail"
             type="text"
@@ -16,13 +17,13 @@
       </div>
       <div class="form-group">
         <label class="col-md-4 control-label" for="pseudo">Pseudo</label>
-        <div class="col-md-4">
+        <div class="col-md-8">
           <input id="pseudo" type="text" placeholder="ex:Bertrand" v-model="user.pseudo" />
         </div>
       </div>
       <div class="form-group">
         <label class="col-md-4 control-label" for="password">Mot de Passe</label>
-        <div class="col-md-4">
+        <div class="col-md-8">
           <input id="mdp" type="password" placeholder="min 5 caractères" v-model="user.password" />
         </div>
       </div>
@@ -33,6 +34,9 @@
         </div>
       </div>
     </div>
+    <footer>
+      <img class="img-footer" alt="Vue logo" src="../assets/icon-white-footer.png" />
+    </footer>
   </div>
 </template>
 
@@ -69,8 +73,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-template {
-  width: 100%;
+#signup {
+  margin-bottom: 20%;
+}
+.logo {
+  width: 0%;
 }
 .form-group {
   width: 100%;
@@ -95,8 +102,9 @@ label {
   display: inline-block;
 }
 #submitbutton {
-  width: 300px;
-  height: 40px;
+  width: 80%;
+  justify-content: center;
+  height: 45px;
   font-family: "Jura", sans-serif;
   font-weight: bold;
   font-size: 20px;
@@ -109,13 +117,73 @@ h1 {
   margin-bottom: 2%;
   font-family: "Prompt", sans-serif;
 }
-ul {
-  display: inline-flexbox;
-  list-style-type: none;
-  margin-bottom: 3%;
-  li {
-    font-size: 20px;
-    font-family: "Jura", sans-serif;
+footer {
+  width: 100%;
+  height: 200px;
+  position: fixed;
+  bottom: 0;
+  background-color: #1f3150;
+
+  .img-footer {
+    height: 100%;
+  }
+}
+
+/* Site responsive tablettes/smartphones*/
+@media all and (max-width: 1024px) {
+  #signup {
+    .Logo {
+      display: none;
+    }
+    .logo {
+      width: 20%;
+      margin-top: 3%;
+      margin-bottom: 3%;
+    }
+    h1 {
+      margin-bottom: 5%;
+    }
+  }
+}
+/* Site responsive pour petits écrans*/
+@media all and (max-width: 700px) {
+  #signup {
+    margin-bottom: 60%;
+    .logo {
+      width: 30%;
+    }
+    h1 {
+      width: 80%;
+      text-align: center;
+      margin: auto;
+      font-size: 20px;
+      margin-bottom: 8%;
+    }
+    .form-group {
+      font-size: 17px;
+      display: flex;
+      flex-flow: column;
+    }
+  }
+}
+/* Affichage site Grands ecrans 4K*/
+@media all and (min-width: 1500px) and (max-width: 2300px) {
+  #signup {
+    h1 {
+      font-size: 3.2rem;
+    }
+    label {
+      font-size: 2.6rem;
+    }
+    input {
+      width: 70%;
+      height: 80px;
+      font-size: 2.6rem;
+    }
+    #submitbutton {
+      height: 100px;
+      font-size: 2.4rem;
+    }
   }
 }
 </style>

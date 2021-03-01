@@ -1,17 +1,18 @@
 <template>
   <div class="login">
-    <img alt="Groupomania logo" src="../assets/icon-left-font.png" />
+    <img class="logo" alt="logo-responsive" src="../assets/icon.png" />
+    <img class="Logo" alt="Vue logo" src="../assets/icon-left-font.png" />
     <h1>Merci de bien vouloir renseigner les champs ci-dessous</h1>
     <div class="form">
       <div class="form-group">
         <label class="col-md-4 control-label" for="email">E-mail</label>
-        <div class="col-md-4">
+        <div class="col-md-8">
           <input id="mail" type="text" v-model="login.login" />
         </div>
       </div>
       <div class="form-group">
         <label class="col-md-4 control-label" for="password">Mot de Passe</label>
-        <div class="col-md-4">
+        <div class="col-md-8">
           <input id="mdp" type="password" v-model="login.password" />
         </div>
       </div>
@@ -22,6 +23,9 @@
         </div>
       </div>
     </div>
+    <footer>
+      <img class="img-footer" alt="Vue logo" src="../assets/icon-white-footer.png" />
+    </footer>
   </div>
 </template>
 
@@ -45,6 +49,7 @@ export default {
           let newToken = response.data.token;
           localStorage.setItem("authToken", newToken);
           localStorage.setItem("userPseudo", response.data.userPseudo);
+          localStorage.setItem("userId", response.data.userId);
           console.log(newToken);
           axios.defaults.headers["Authorization"] = "Bearer " + newToken;
           this.$router.push("/allPosts");
@@ -59,6 +64,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.logo {
+  width: 0%;
+}
 .form-group {
   width: 100%;
   justify-content: center;
@@ -83,7 +91,7 @@ label {
   display: inline;
 }
 #submitbutton {
-  width: 300px;
+  width: 80%;
   height: 40px;
   font-family: "Jura", sans-serif;
   font-weight: bold;
@@ -104,6 +112,78 @@ ul {
   li {
     font-size: 20px;
     font-family: "Jura", sans-serif;
+  }
+}
+footer {
+  width: 100%;
+  height: 200px;
+  position: fixed;
+  bottom: 0;
+  background-color: #1f3150;
+
+  .img-footer {
+    height: 100%;
+  }
+}
+/* Site responsive tablettes/smartphones*/
+@media all and (max-width: 1024px) {
+  .login {
+    .Logo {
+      display: none;
+    }
+    .logo {
+      width: 20%;
+      margin-bottom: 0%;
+      margin-top: 3%;
+      margin-bottom: 3%;
+    }
+    h1 {
+      margin-bottom: 5%;
+    }
+  }
+}
+/* Site responsive tablettes/smartphones*/
+@media all and (max-width: 700px) {
+  .login {
+    margin-bottom: 60%;
+    .logo {
+      width: 30%;
+    }
+    h1 {
+      width: 80%;
+      text-align: center;
+      margin: auto;
+      font-size: 20px;
+      margin-bottom: 8%;
+    }
+    .form-group {
+      font-size: 17px;
+      display: flex;
+      flex-flow: column;
+      input {
+        margin-left: 0;
+      }
+    }
+  }
+}
+/* Affichage site Grands ecrans 4K*/
+@media all and (min-width: 1500px) and (max-width: 2300px) {
+  .login {
+    h1 {
+      font-size: 3.2rem;
+    }
+    label {
+      font-size: 2.6rem;
+    }
+    input {
+      width: 70%;
+      height: 80px;
+      font-size: 2.6rem;
+    }
+    #submitbutton {
+      height: 100px;
+      font-size: 2.4rem;
+    }
   }
 }
 </style>
