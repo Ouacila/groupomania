@@ -11,7 +11,9 @@
         </div>
       </div>
       <div class="form-group">
-        <label class="col-md-4 control-label" for="password">Mot de Passe</label>
+        <label class="col-md-4 control-label" for="password"
+          >Mot de Passe</label
+        >
         <div class="col-md-8">
           <input id="mdp" type="password" v-model="login.password" />
         </div>
@@ -19,12 +21,18 @@
       <div class="form-group">
         <label class="col-md-4 control-label" for="submitbutton"></label>
         <div class="col-md-4">
-          <button v-on:click="logUser()" id="submitbutton" name="submitbutton">Se connecter</button>
+          <button v-on:click="logUser()" id="submitbutton" name="submitbutton">
+            Se connecter
+          </button>
         </div>
       </div>
     </div>
     <footer>
-      <img class="img-footer" alt="Vue logo" src="../assets/icon-white-footer.png" />
+      <img
+        class="img-footer"
+        alt="Vue logo"
+        src="../assets/icon-white-footer.png"
+      />
     </footer>
   </div>
 </template>
@@ -37,28 +45,32 @@ export default {
     return {
       login: {
         login: "",
-        password: ""
-      }
+        password: "",
+      },
     };
   },
   methods: {
     logUser() {
       axios
         .post("http://localhost:7070/login", this.login)
-        .then(response => {
+        .then((response) => {
           let newToken = response.data.token;
           localStorage.setItem("authToken", newToken);
           localStorage.setItem("userPseudo", response.data.userPseudo);
           localStorage.setItem("userId", response.data.userId);
+          sessionStorage.setItem("dataPseudo", response.data.dataPseudo);
           console.log(newToken);
           axios.defaults.headers["Authorization"] = "Bearer " + newToken;
           this.$router.push("/allPosts");
         })
-        .catch(e => {
-          this.errors.push(e);
+        .catch(() => {
+          this.message.push({
+            message:
+              "Vous ne pouvez pas vous connecter, Avez vous créer un compte utilisateur?",
+          });
         });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -143,9 +155,9 @@ footer {
   }
 }
 /* Site responsive tablettes/smartphones*/
-@media all and (max-width: 700px) {
+@media all and (max-width: 800px) {
   .login {
-    margin-bottom: 60%;
+    margin-bottom: 65%;
     .logo {
       width: 30%;
     }

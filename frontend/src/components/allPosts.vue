@@ -1,31 +1,50 @@
 <template>
   <div class="form-group">
-    <button v-on:click="logOut()" id="logOut" name="logOut" class="btn btn-warning">Se déconnecter</button>
+    <button
+      v-on:click="logOut()"
+      id="logOut"
+      name="logOut"
+      class="btn btn-warning"
+    >
+      Se déconnecter
+    </button>
     <button
       v-on:click="redirection()"
       id="create"
       name="create"
       class="btn btn-primary"
-    >Partager un post</button>
+    >
+      Partager un post
+    </button>
     <button
       v-on:click="deleteAccount()"
       id="deleteAccount"
       name="deleteAccount"
       class="btn btn-danger"
-    >Suppression du compte</button>
+    >
+      Suppression du compte
+    </button>
     <div class="content-post">
       <h1>Articles partagés par vos collègues</h1>
       <div class="posts">
-        <div v-for="Post in Posts" :key="Post" class="post" v-on:click="article(Post.id)">
-          <h2>Partagé par: {{Post.userPseudo}}</h2>
-          <h4>{{Post.userId}}</h4>
-          <h3>{{Post.title}}</h3>
-          <p>{{Post.content}}</p>
+        <div
+          v-for="Post in Posts"
+          :key="Post"
+          class="post"
+          v-on:click="article(Post.id)"
+        >
+          <h2>Partagé par: {{ Post.userPseudo }}</h2>
+          <h3>{{ Post.title }}</h3>
+          <p>{{ Post.content }}</p>
         </div>
       </div>
     </div>
     <footer>
-      <img class="img-footer" alt="Vue logo" src="../assets/icon-white-footer.png" />
+      <img
+        class="img-footer"
+        alt="Vue logo"
+        src="../assets/icon-white-footer.png"
+      />
     </footer>
   </div>
 </template>
@@ -35,7 +54,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      Posts: null
+      Posts: null,
     };
   },
   mounted() {
@@ -43,7 +62,7 @@ export default {
       "Bearer " + localStorage.getItem("authToken");
     axios
       .get("http://localhost:7070/api/posts", this.Posts)
-      .then(response => {
+      .then((response) => {
         this.Posts = response.data;
         console.log(this.Posts);
       })
@@ -66,18 +85,18 @@ export default {
     },
 
     deleteAccount() {
-      const userId = localStorage.getItem("id");
+      const userId = localStorage.getItem("userId");
       axios
         .delete(`http://localhost:7070/auth/${userId}`)
-        .then(response => {
+        .then((response) => {
           console.log(response.data);
           this.$router.push("/signup");
         })
         .catch(function(error) {
           console.log(error);
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

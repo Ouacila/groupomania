@@ -1,11 +1,13 @@
 //Imports
 
 var express = require("express");
-var bodyParser = require("body-parser");
+var bodyParser = require("body-parser"); // renvoie un middleware qui analyse uniquement le json;
 var usersCtrl = require("./Routes/userCtrl");
 var postsCtrl = require("./Routes/postCtrl");
 const jwt = require("jsonwebtoken");
 var cors = require("cors");
+var helmet = require("helmet");
+var session = require("cookie-session");
 
 //Instantiate server
 
@@ -24,6 +26,7 @@ server.use(bodyParser.json());
 
 server.use("/", usersCtrl);
 server.use("/api", validateUser, postsCtrl);
+server.use(helmet());
 
 //Configuration routes
 server.get("/", function (req, res, next) {
@@ -34,6 +37,26 @@ server.get("/", function (req, res, next) {
 server.listen(7070, function () {
   console.log("Serveur en écoute");
 });
+
+server.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+  );
+  next();
+});
+/* Ces headers permettent :
+d'accéder à notre API depuis n'importe quelle origine ( '*' ) ;
+d'ajouter les headers mentionnés aux requêtes envoyées vers notre API (Origin , X-Requested-With , etc.) ;
+d'envoyer des requêtes avec les méthodes mentionnées ( GET ,POST , etc.).*/
+
+// Empêche l'ouverture de la page dans le cadre ou l'iframe pour protéger du détournement de clic
+server.disable("x-powered-by");
 
 function validateUser(req, res, next) {
   var token =
@@ -50,3 +73,15 @@ function validateUser(req, res, next) {
     }
   });
 }
+
+server.use(
+  session({
+    name: "session",
+    keys: ["userId"],
+    cookie: {
+      secure: true,
+      httpOnly: true,
+      expires: 2,
+    },
+  })
+);

@@ -32,10 +32,16 @@
     </div>
     <div class="form-group">
       <label class="submit" for="submitbutton"></label>
-      <button v-on:click="create()" id="submitbutton" name="submitbutton">Partager mon post</button>
+      <button v-on:click="create()" id="submitbutton" name="submitbutton">
+        Partager mon post
+      </button>
     </div>
     <footer>
-      <img class="img-footer" alt="Vue logo" src="../assets/icon-white-footer.png" />
+      <img
+        class="img-footer"
+        alt="Vue logo"
+        src="../assets/icon-white-footer.png"
+      />
     </footer>
   </div>
 </template>
@@ -50,8 +56,7 @@ export default {
         title: "",
         content: "",
         userPseudo: localStorage.getItem("userPseudo"),
-        userId: localStorage.getItem("userId")
-      }
+      },
     };
   },
   methods: {
@@ -60,16 +65,16 @@ export default {
         "Bearer " + localStorage.getItem("authToken");
       axios
         .post("http://localhost:7070/api/post", this.post)
-        .then(response => {
+        .then((response) => {
           console.log(response.data);
           this.$router.push("/allPosts");
         })
-        .catch(e => {
+        .catch((e) => {
           this.errors.push(e);
         });
       // redirection vers la page d'affichage de tous les posts
-    }
-  }
+    },
+  },
 };
 </script>
 

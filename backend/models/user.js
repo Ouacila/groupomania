@@ -6,18 +6,21 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true,
-        unique: true
+        unique: true,
+        require: true
       },
 
       email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
+        require: true
       },
 
       password: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        require: true
       }
     }, {}
   );
