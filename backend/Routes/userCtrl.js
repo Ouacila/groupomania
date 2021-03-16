@@ -37,7 +37,7 @@ router.post("/login", (req, res) => {
       sessionStorage.setItem('dataPseudo', dataPseudo);
       let token = jwt.sign( //méthode sign de jwt pour encoder un nouveau token
         {
-          //
+
           id: data.id,
           login: data.email,
         },

@@ -58,7 +58,6 @@ export default {
           localStorage.setItem("authToken", newToken);
           localStorage.setItem("userPseudo", response.data.userPseudo);
           localStorage.setItem("userId", response.data.userId);
-          sessionStorage.setItem("dataPseudo", response.data.dataPseudo);
           console.log(newToken);
           axios.defaults.headers["Authorization"] = "Bearer " + newToken;
           this.$router.push("/allPosts");

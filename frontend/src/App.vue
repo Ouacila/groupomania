@@ -24,10 +24,6 @@
   a {
     font-weight: bold;
     color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #d1515a;
-    }
   }
 }
 @media all and (max-width: 1024px) {

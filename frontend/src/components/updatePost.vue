@@ -37,10 +37,16 @@
         id="submitbutton"
         name="submitbutton"
         class="btn btn-info"
-      >Modifier mon post</button>
+      >
+        Modifier mon post
+      </button>
     </div>
     <footer>
-      <img class="img-footer" alt="Vue logo" src="../assets/icon-white-footer.png" />
+      <img
+        class="img-footer"
+        alt="Vue logo"
+        src="../assets/icon-white-footer.png"
+      />
     </footer>
   </div>
 </template>
@@ -51,8 +57,8 @@ export default {
     return {
       post: {
         title: "",
-        content: ""
-      }
+        content: "",
+      },
     };
   },
   methods: {
@@ -62,16 +68,16 @@ export default {
           `http://localhost:7070/api/post/${this.$route.params.id}`,
           this.post
         )
-        .then(response => {
+        .then((response) => {
           console.log(response.data);
           this.$router.push("/allPosts");
         })
-        .catch(e => {
+        .catch((e) => {
           this.errors.push(e);
         });
       // redirection vers la page d'affichage de tous les posts
-    }
-  }
+    },
+  },
 };
 </script>
 

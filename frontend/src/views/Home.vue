@@ -3,9 +3,18 @@
     <img class="logo" alt="logo-responsive" src="../assets/icon.png" />
     <img class="Logo" alt="Vue logo" src="../assets/icon-left-font.png" />
     <h1>Bienvenue sur le réseau social de Groupomania</h1>
-    <p>Notre entreprise, spécialisée dans la grande distribution, est en pleine expansion. Nous avons actuellement plus de 600 collaborateurs avons beaucoup recruté depuis quelques années. Nous étions uniquement 300 il y a 3 ans.</p>
+    <p>
+      Notre entreprise, spécialisée dans la grande distribution, est en pleine
+      expansion. Nous avons actuellement plus de 600 collaborateurs avons
+      beaucoup recruté depuis quelques années. Nous étions uniquement 300 il y a
+      3 ans.
+    </p>
     <footer>
-      <img class="img-footer" alt="Vue logo" src="../assets/icon-white-footer.png" />
+      <img
+        class="img-footer"
+        alt="Vue logo"
+        src="../assets/icon-white-footer.png"
+      />
     </footer>
   </div>
 </template>
@@ -23,35 +32,37 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-.logo {
-  width: 0%;
-}
-h1 {
-  font-family: "Prompt", sans-serif;
-  font-size: 2rem;
-  width: 90%;
-  text-align: center;
-  margin: auto;
-}
-p {
-  width: 80%;
-  text-align: center;
-  margin: auto;
-  padding-top: 3%;
-  font-family: "Jura", sans-serif;
-  font-size: 1.3rem;
-}
-footer {
-  width: 100%;
-  height: 200px;
-  position: relative;
-  position: fixed;
-  bottom: 0;
-  background-color: #1f3150;
-  z-index: 0;
-  .img-footer {
-    height: 100%;
-    z-index: 1;
+.home {
+  .logo {
+    width: 0%;
+  }
+  h1 {
+    font-family: "Prompt", sans-serif;
+    font-size: 2rem;
+    width: 90%;
+    text-align: center;
+    margin: auto;
+  }
+  p {
+    width: 80%;
+    text-align: center;
+    margin: auto;
+    padding-top: 3%;
+    font-family: "Jura", sans-serif;
+    font-size: 1.3rem;
+  }
+  footer {
+    width: 100%;
+    height: 200px;
+    position: relative;
+    position: fixed;
+    bottom: 0;
+    background-color: #123773;
+    z-index: 0;
+    .img-footer {
+      height: 100%;
+      z-index: 1;
+    }
   }
 }
 /* Site responsive tablettes/smartphones*/
